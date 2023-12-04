@@ -1,83 +1,68 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.*;
-public class GamePanel{
-    GameCode info = new GameCode(10, 10, 10);
-    private int tileSize = 70;
-    private int boardWidth = info[1] * tileSize;
-    private int boardHeight = numRows * tileSize;
-    JFrame frame = new JFrame("Minesweeper");
-    JLabel textLabel = new JLabel();
-    JPanel textPanel = new JPanel();
-    JPanel boardPanel = new JPanel();
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class GamePanel extends JPanel {
+    private JButton[][] buttons;
+    private int[][] board;
+    private int size;
+    private int mines;
+
     public GamePanel() {
-        frame.setSize(boardWidth, boardHeight);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
+        // Initialize the game panel
+        size = 10;
+        mines = 10;
+        buttons = new JButton[size][size];
+        board = new int[size][size];
 
-        textLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        textLabel.setHorizontalAlignment(JLabel.CENTER);
-        textLabel.setText("Bombs: " + Integer.toString(mineCount));
-        textLabel.setOpaque(true);
+        setLayout(new GridLayout(size, size));
 
-        textPanel.setLayout(new BorderLayout());
-        textPanel.add(textLabel);
-        frame.add(textPanel, BorderLayout.NORTH);
-
-        boardPanel.setLayout(new GridLayout(numRows, numCols));
-        frame.add(boardPanel);
-
-        for (int r = 0; r < numRows; r++) {
-            for (int c = 0; c < numCols; c++) {
-                GameCode.MineTile tile = new GameCode.MineTile(r, c);
-                board[r][c] = tile;
-
-                tile.setFocusable(false);
-                tile.setMargin(new Insets(0, 0, 0, 0));
-                tile.setFont(new Font("Arial Unicode MS", Font.PLAIN, 45));
-                // tile.setText("💣");
-                tile.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        if (gameOver) {
-                            return;
-                        }
-                        GameCode.MineTile tile = (GameCode.MineTile) e.getSource();
-
-                        //left click
-                        if (e.getButton() == MouseEvent.BUTTON1) {
-                            if (tile.getText() == "") {
-                                if (mineList.contains(tile)) {
-                                    revealMines();
-                                }
-                                else {
-                                    checkMine(tile.r, tile.c);
-                                }
-                            }
-                        }
-                        //right click
-                        else if (e.getButton() == MouseEvent.BUTTON3) {
-                            if (tile.getText() == "" && tile.isEnabled()) {
-                                tile.setText("🚩");
-                            }
-                            else if (tile.getText() == "🚩") {
-                                tile.setText("");
-                            }
-                        }
-                    }
-                });
-
-                boardPanel.add(tile);
-
+        // Create buttons and add action listeners
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                buttons[i][j] = new JButton();
+                buttons[i][j].addActionListener(new ButtonClickListener(i, j));
+                add(buttons[i][j]);
             }
         }
 
-        frame.setVisible(true);
+        // Generate mines randomly on the board
+        generateMines();
 
-        setMines();
+        // Calculate the number of mines adjacent to each cell
+        calculateAdjacentMines();
+        startGame();
+    }
+
+    public void startGame() {
+        JFrame frame = new JFrame("Minesweeper");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 500);
+        frame.add(this);
+        frame.setVisible(true);
+    }
+
+    private void generateMines() {
+        // Code to generate mines randomly on the board
+    }
+
+    private void calculateAdjacentMines() {
+        // Code to calculate the number of mines adjacent to each cell
+    }
+
+    private class ButtonClickListener implements ActionListener {
+        private int row;
+        private int col;
+
+        public ButtonClickListener(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Code to handle button click event
+        }
     }
 }
