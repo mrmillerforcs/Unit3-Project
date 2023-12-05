@@ -5,15 +5,6 @@ import java.util.Random;
 import javax.swing.*;
 
 public class Minesweeper {
-    private class MineTile extends JButton {
-        int r;
-        int c;
-
-        public MineTile(int r, int c) {
-            this.r = r;
-            this.c = c;
-        }
-    }
 
     int tileSize = 70;
     int numRows = 10;

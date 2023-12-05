@@ -5,15 +5,6 @@ import java.util.Random;
 import java.util.Scanner;
 import javax.swing.*;
 public class GameCode{
-    private class MineTile extends JButton {
-        int r;
-        int c;
-
-        public MineTile(int r, int c) {
-            this.r = r;
-            this.c = c;
-        }
-    }
     Scanner scan = new Scanner(System.in);
     private int tileSize = 70;
     private int numRows = 10;
@@ -21,7 +12,6 @@ public class GameCode{
     private int boardWidth = numCols * tileSize;
     private int boardHeight = numRows * tileSize;
     int mineCount = 10;
-    JPanel boardPanel = new JPanel();
     MineTile[][] board = new MineTile[numRows][numCols];
     ArrayList<MineTile> mineList;
     Random random = new Random();
@@ -50,7 +40,7 @@ public class GameCode{
 
                         //left click
                         if (e.getButton() == MouseEvent.BUTTON1) {
-                            if (tile.getText() == "") {
+                            if (tile.getText().equals("")) {
                                 if (mineList.contains(tile)) {
                                     revealMines();
                                 }
@@ -70,8 +60,8 @@ public class GameCode{
                         }
                     }
                 });
-                panel.editBoard(r,c);
-                boardPanel.add(tile);
+
+                panel.getBoardPanel().add(tile);
             }
         }
         panel.editFrame(true);

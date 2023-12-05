@@ -5,23 +5,18 @@ import java.util.Random;
 import java.util.Scanner;
 import javax.swing.*;
 public class GamePanel {
-    private class MineTile extends JButton {
-        int r;
-        int c;
-
-        public MineTile(int r, int c) {
-            this.r = r;
-            this.c = c;
-        }
-    }
     //The 4 variables below are used to
-    JFrame frame = new JFrame("Minesweeper");
-    JLabel textLabel = new JLabel();
-    JPanel textPanel = new JPanel();
-    JPanel boardPanel = new JPanel();
+    private JFrame frame = new JFrame("Minesweeper");
+    private JLabel textLabel = new JLabel();
+    private JPanel textPanel = new JPanel();
+    private JPanel boardPanel = new JPanel();
     private boolean object = false;
 
     public GamePanel(){
+    }
+
+    public JPanel getBoardPanel() {
+        return boardPanel;
     }
     public GamePanel(int boardWidth, int boardHeight, int numRows, int numCols, String username){
         frame.setSize(boardWidth, boardHeight);
